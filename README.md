@@ -2,6 +2,28 @@
 
 Build an agent that reads a rescue scenario and returns a safe, smart decision. You write the strategy in **`agent.py`**; the starter only shows the interface.
 
+## The 5 rounds (100 points)
+The competition has five rounds. **One `agent.py` is used for all of them**: the evaluator feeds your `choose_rescue(case)` cases from every round (the case has a `round` field), so build one agent that handles everything up to Round 5.
+
+| Round | Points | What the scenario looks like | What your agent must handle |
+|---|---|---|---|
+| 1. Basic Rescue | 10 | One mission, clear weather, no blocked road | Is it feasible (fuel and deadline)? Dispatch or not |
+| 2. Blocked Routes | 15 | 1-2 missions, `route_blocked` and `alternate_distance` appear | Never use a blocked road; consider the alternate route (it may not exist) |
+| 3. Limited Resources | 20 | 2-3 missions, fuel / kits / personnel are limited, `resupply_possible` may be true | Resource checks; what to do when nothing fits |
+| 4. Critical Priorities | 25 | 3-5 missions with tight deadlines | Choose well between competing missions (severity vs feasibility) |
+| 5. Adaptive RescueOps | 30 | Everything combined. Weather can change and later stages bring a free-text `update_report` | Read the report, update the scenario, decide again. **Needs an Ollama call** (see section 6b) |
+
+Each later round **includes everything from the earlier ones**, so Round 1 logic must still work in Round 5.
+
+## Where to start (step by step)
+1. Read sections 3 and 4 below (the scenario and the decision you return).
+2. Open `agent.py`, write the 3 tools (`check_route`, `check_resources`, `check_deadline`) as LangChain `@tool`s.
+3. Build a small LangGraph in `build_graph()` that calls the tools and returns a decision. Get **Round 1** passing first, then add blocked routes (R2), resources and many missions (R3-R4).
+4. Test with the sample cases. They are named by round: `r1_p1, r1_p2, ... r5_p1, r5_p2`.
+   `python app.py --case r2_p1 --show` runs one case and prints the scenario and your decision.
+5. Last: Round 5. Add `parse_update_report`, set your Ollama key, run `python app.py --test-api`, then test `r5_p1`.
+6. Submit on the page the organizers give you (section 7). No key? Submit with only R1-R4 ticked.
+
 ## 1. Install (Windows PowerShell)
 ```powershell
 cd RescueOps_Participant
