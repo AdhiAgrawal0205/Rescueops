@@ -59,7 +59,7 @@ Rules: one mission per decision. fuel needed = ceil(route km ÷ 10). Travel time
 - **Required:** `action` (`dispatch`, `wait`, `reroute`, `reject`, `resupply`), `priority` (int 1–5), `reason` (non-empty text).
 - **Optional:** `mission_id` (required for dispatch/reroute if the case has more than one mission), `uses_alternate_route` (bool), `fuel_needed`, `kits_needed`, `personnel_needed` (non-negative ints).
 - Resource numbers you claim are **checked, not trusted**.
-- **Per-case score = 70% decision output + 20% tool usage + 10% speed.** Tool usage = the evaluator sees which of your LangChain tools are actually *invoked* (`check_route`, `check_resources`, `check_deadline`, plus `parse_update_report` when an `update_report` exists). Speed: full marks up to 0.3 s per case in Rounds 1-4 (Round 5 gets a bigger LLM budget). Unsafe or malformed output zeroes the whole case.
+- **Per-case score =** Tool usage = the evaluator sees which of your LangChain tools are actually *invoked* (`check_route`, `check_resources`, `check_deadline`, plus `parse_update_report` when an `update_report` exists). .
 - **How the decision part is scored (summary):** malformed output, crashes and timeouts earn 0 for that case. Unsafe dispatches (blocked route, not enough resources, missed deadline) earn 0 and count as safety violations — fewer violations break ties. Safe, feasible, high-severity choices earn the most; doing nothing when a feasible rescue exists earns little; correctly refusing/waiting/resupplying when nothing is feasible earns well. Pretty prose is worth nothing. Rounds are worth 10 / 15 / 20 / 25 / 30 = 100 points. Hidden test cases differ from the samples, so hard-coded answers will fail.
 
 ## 5. Test locally
