@@ -22,7 +22,7 @@ Each later round **includes everything from the earlier ones**, so Round 1 logic
 4. Test with the sample cases. They are named by round: `r1_p1, r1_p2, ... r5_p1, r5_p2`.
    `python app.py --case r2_p1 --show` runs one case and prints the scenario and your decision.
 5. Last: Round 5. Add `parse_update_report`, set your Ollama key, run `python app.py --test-api`, then test `r5_p1`.
-6. Submit on the page the organizers give you (section 7). No key? Submit with only R1-R4 ticked.
+6. Submit on the page the organizers give you (section 7). No key? Submit R1-R4 and skip R5.
 
 ## 1. Install (Windows PowerShell)
 ```powershell
@@ -34,7 +34,9 @@ pip install -r requirements.txt
 macOS/Linux: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
 
 ## 2. Where to write code
-Open `agent.py` and replace the placeholder inside `choose_rescue(case)`. The starter only contains function definitions. **You** write the agent with LangGraph + LangChain: make the 4 `@tool` functions (`check_route`, `check_resources`, `check_deadline`, `parse_update_report`), build your own graph in `build_graph()` and return its decision from `choose_rescue`. `call_ollama()` (via `requests`) is provided; the key/model are read from environment variables only, never from code.
+`agent.py` has **five independent round solvers**: `solve_round1` ... `solve_round5`. Each one has its own tools, its own LangGraph and its own decision logic, and none of them calls another round's code, so changing one round can never break another. `choose_rescue(case)` only reads `case["round"]` and calls the matching solver. (Tool names stay exactly `check_route`, `check_resources`, `check_deadline`, `parse_update_report`: each round defines its own copy inside its `_buildN()` function.)
+
+Rework a round by editing only its block (`_build_round3()` / `solve_round3()` etc.). The starter only contains function definitions. **You** write the agent with LangGraph + LangChain: make the 4 `@tool` functions (`check_route`, `check_resources`, `check_deadline`, `parse_update_report`), build your own graph in `build_graph()` and return its decision from `choose_rescue`. `call_ollama()` (via `requests`) is provided; the key/model are read from environment variables only, never from code.
 
 ## 3. The scenario (`case`)
 ```
@@ -83,8 +85,10 @@ Rounds 1-4 run without your key; your agent must work without the LLM there. For
 - Rounds 1-4 can be submitted without any key.
 - Use the LLM to read the report, then double-check its answer yourself (blocked route? resources? deadline?). An invalid LLM answer scores 0 for that stage.
 
-## 7. Package and submit
-Open the submission page the organizers give you, enter your team name, upload the file and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You can submit again before the deadline (the organizers see your best run).
+## 7. Package and submit (round by round)
+Submissions go **one round at a time, in order**: submit **Round 1** first, then **Round 2**, then 3, 4 and 5. A round unlocks after the previous one is submitted. The page shows which round is next once you type your team name. You can resubmit any round; the organizers keep your best result for each round, and your total is the sum of your best rounds. Round 5 asks for your Ollama key + model; Rounds 1-4 need no key.
+
+Open the submission page the organizers give you, enter your team name, upload the file, pick the round and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You can submit again before the deadline (the organizers see your best run).
 
 Submit `agent.py` alone, or a ZIP (`Compress-Archive -Path agent.py -DestinationPath my_team.zip`; add helper files if you import them). See `SUBMISSION_CHECKLIST.md`.
 **Never include:** API keys, `.env`, tokens, `.venv`, `__pycache__`, big data files, or anything copied from another team. Submissions containing key files or hard-coded keys are rejected.
