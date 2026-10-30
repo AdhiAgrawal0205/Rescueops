@@ -1,0 +1,16 @@
+{
+  "example": {
+    "action": "dispatch",
+    "priority": 4,
+    "reason": "Mission is urgent and feasible",
+    "mission_id": "M1",
+    "uses_alternate_route": false,
+    "fuel_needed": 2,
+    "kits_needed": 1,
+    "personnel_needed": 1
+  },
+  "required_fields": ["action", "priority", "reason"],
+  "optional_fields": ["mission_id", "uses_alternate_route", "fuel_needed", "kits_needed", "personnel_needed"],
+  "allowed_actions": ["dispatch", "wait", "reroute", "reject", "resupply"],
+  "notes": "mission_id is required for dispatch/reroute unless the scenario has exactly one mission. priority is an int 1-5. Claimed resource numbers are checked against the real scenario."
+}
