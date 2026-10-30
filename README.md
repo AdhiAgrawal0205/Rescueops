@@ -1,0 +1,68 @@
+# RescueOps — Participant Pack
+
+Build an agent that reads a rescue scenario and returns a safe, smart decision. You write the strategy in **`agent.py`**; the starter only shows the interface.
+
+## 1. Install (Windows PowerShell)
+```powershell
+cd RescueOps_Participant
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+macOS/Linux: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+
+## 2. Where to write code
+Open `agent.py` and replace the placeholder inside `choose_rescue(case)`. The starter only contains function definitions. **You** write the agent with LangGraph + LangChain: make the 4 `@tool` functions (`check_route`, `check_resources`, `check_deadline`, `parse_update_report`), build your own graph in `build_graph()` and return its decision from `choose_rescue`. `call_ollama()` (via `requests`) is provided; the key/model are read from environment variables only, never from code.
+
+## 3. The scenario (`case`)
+```
+case_id, round, stage, weather ("clear"|"rain"|"storm"), resupply_possible (bool),
+resources: {fuel, kits, personnel},
+missions: [{id, severity 1-5, distance, deadline, kits, personnel, route_blocked, alternate_distance|null}]
+update_notice (round 5, stage > 0)
+```
+Rules: one mission per decision. fuel needed = ceil(route km ÷ 10). Travel time = ceil(km × weather factor: clear 1.0, rain 1.25, storm 1.5) and must be ≤ `deadline`. A blocked direct route can't be used; use the alternate route (`alternate_distance`, if not null) by returning `uses_alternate_route: true` (or action `reroute`). Round 5 calls your agent once per stage; each call must reflect the *current* state.
+
+## 4. The decision you return
+```json
+{"action": "dispatch", "priority": 4, "reason": "Mission is urgent and feasible",
+ "mission_id": "M1", "uses_alternate_route": false,
+ "fuel_needed": 2, "kits_needed": 1, "personnel_needed": 1}
+```
+- **Required:** `action` (`dispatch`, `wait`, `reroute`, `reject`, `resupply`), `priority` (int 1–5), `reason` (non-empty text).
+- **Optional:** `mission_id` (required for dispatch/reroute if the case has more than one mission), `uses_alternate_route` (bool), `fuel_needed`, `kits_needed`, `personnel_needed` (non-negative ints).
+- Resource numbers you claim are **checked, not trusted**.
+- **Per-case score = 70% decision output + 20% tool usage + 10% speed.** Tool usage = the evaluator sees which of your LangChain tools are actually *invoked* (`check_route`, `check_resources`, `check_deadline`, plus `parse_update_report` when an `update_report` exists). Speed: full marks up to 0.3 s per case in Rounds 1-4 (Round 5 gets a bigger LLM budget). Unsafe or malformed output zeroes the whole case.
+- **How the decision part is scored (summary):** malformed output, crashes and timeouts earn 0 for that case. Unsafe dispatches (blocked route, not enough resources, missed deadline) earn 0 and count as safety violations — fewer violations break ties. Safe, feasible, high-severity choices earn the most; doing nothing when a feasible rescue exists earns little; correctly refusing/waiting/resupplying when nothing is feasible earns well. Pretty prose is worth nothing. Rounds are worth 10 / 15 / 20 / 25 / 30 = 100 points. Hidden test cases differ from the samples, so hard-coded answers will fail.
+
+## 5. Test locally
+```powershell
+python app.py              # all sample cases, prints ok/FAIL
+python app.py --case r2_p1 --show
+```
+The checker verifies format and hard safety rules only; it does not give your competition score.
+
+## 6. Optional: Ollama cloud LLM
+1. Create an API key in your Ollama account and look at the cloud models your account can use (account page / model list). Don't assume a model name is available.
+2. Set variables in the same PowerShell window (never in code):
+```powershell
+$env:OLLAMA_API_KEY="your_key_here"
+$env:OLLAMA_MODEL="your_available_model"
+```
+macOS/Linux: `export OLLAMA_API_KEY="..."` and `export OLLAMA_MODEL="..."`.
+3. Check the setup: `python app.py --test-api`
+4. Use `ask_ollama(case)` inside `choose_rescue`. It calls `https://ollama.com/v1/chat/completions`, never prints your key, returns `None` on missing key/model, HTTP 401/403/404/429, timeouts, network errors or malformed replies, and returns only a structurally valid decision. **You must still verify the answer against the case** (blocked route? resources? deadline?) and fall back to your own logic.
+Rounds 1-4 run without your key; your agent must work without the LLM there. For Round 5 see 6b.
+
+## 6b. ROUND 5 needs Ollama (mandatory for Round 5)
+- Round 5 is worth 30 points. In its later stages the scenario fields are **stale**; the real changes come only as free text in `case["update_report"]`, e.g. `"Weather is now storm. Route to M2 is now blocked. Fuel is now 4."`. Your decision is scored against the updated truth.
+- **Each Round 5 case scores 0 unless your agent makes at least one successful Ollama call** (HTTP 200 to `ollama.com`) while handling that case. Use `ask_ollama` from `agent.py` or the `requests` library (other libraries are not counted). Failed calls (bad key, wrong model, rate limit) don't count, so test with `python app.py --test-api` first.
+- You enter your own Ollama API key and model name in the submit form for Round 5. It is used only for that run and is not stored. Your code must **never** contain the key. Use a limited or throwaway key and revoke it afterwards.
+- Rounds 1-4 can be submitted without any key.
+- Use the LLM to read the report, then double-check its answer yourself (blocked route? resources? deadline?). An invalid LLM answer scores 0 for that stage.
+
+## 7. Package and submit
+Open the submission page the organizers give you, enter your team name, upload the file and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You can submit again before the deadline (the organizers see your best run).
+
+Submit `agent.py` alone, or a ZIP (`Compress-Archive -Path agent.py -DestinationPath my_team.zip`; add helper files if you import them). See `SUBMISSION_CHECKLIST.md`.
+**Never include:** API keys, `.env`, tokens, `.venv`, `__pycache__`, big data files, or anything copied from another team. Submissions containing key files or hard-coded keys are rejected.
