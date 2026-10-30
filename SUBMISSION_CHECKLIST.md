@@ -7,3 +7,5 @@
 - [ ] Only `agent.py` (+ helper `.py`/`.json` files you import) in the ZIP. No `.venv`, no `__pycache__`.
 - [ ] ZIP is under 1 MB and has `agent.py` at its top level (or in one folder).
 - [ ] Team name is 2–40 letters/numbers/spaces/`-`/`_`.
+- [ ] Submit **round by round**: Round 1 first, then Round 2, ... (the page unlocks the next round automatically).
+- [ ] Each round solver in `agent.py` stays self-contained (no round calls another round's function).
