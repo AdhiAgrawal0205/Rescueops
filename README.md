@@ -11,8 +11,11 @@ You need **Git** and **Python 3.10+** installed.
 
 ```powershell
 # 1. Get the project
+cd $HOME\Downloads
 git clone https://github.com/AdhiAgrawal0205/Rescueops.git
+
 cd Rescueops
+code .
 
 # 2. Create and activate a virtual environment (Windows PowerShell)
 python -m venv .venv
