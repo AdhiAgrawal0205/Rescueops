@@ -5,6 +5,49 @@
 
 Build an agent that reads a rescue scenario and returns a safe, smart decision. You write the strategy in **`agent.py`**; the starter only shows the interface.
 
+## Quick start (clone and run)
+
+You need **Git** and **Python 3.10+** installed.
+
+```powershell
+# 1. Get the project
+git clone https://github.com/AdhiAgrawal0205/Rescueops.git
+cd Rescueops
+
+# 2. Create and activate a virtual environment (Windows PowerShell)
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Check that everything works (runs all sample cases)
+python app.py
+```
+
+macOS/Linux:
+```bash
+git clone https://github.com/AdhiAgrawal0205/Rescueops.git
+cd Rescueops
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
+
+If PowerShell blocks the activate script, run `Set-ExecutionPolicy -Scope Process Bypass` once in that window and try again.
+If you pull updates later (the organizers may fix files), run `git pull` inside the `Rescueops` folder. Keep your own work in `agent.py`; if `git pull` complains about local changes, copy your `agent.py` somewhere safe first.
+
+### What is in the repo
+
+| File / folder | Purpose |
+|---|---|
+| `agent.py` | **Your work goes here.** The five round solvers and `choose_rescue(case)` |
+| `app.py` | Local checker: runs the sample cases and prints ok/FAIL |
+| `example/` | Example / sample data used for local testing |
+| `requirements.txt` | Python dependencies |
+| `RescueOps_Problem_Statement.pdf` | The official problem statement |
+| `SUBMISSION_CHECKLIST.md` | Check this before you submit |
+
 ## The 5 rounds (100 points)
 The competition has five rounds. **One `agent.py` is used for all of them**: the evaluator feeds your `choose_rescue(case)` cases from every round (the case has a `round` field), so build one agent that handles everything up to Round 5.
 
@@ -19,22 +62,14 @@ The competition has five rounds. **One `agent.py` is used for all of them**: the
 Each later round **includes everything from the earlier ones**, so Round 1 logic must still work in Round 5.
 
 ## Where to start (step by step)
-1. Read sections 3 and 4 below (the scenario and the decision you return).
-2. Open `agent.py`, write the 3 tools (`check_route`, `check_resources`, `check_deadline`) as LangChain `@tool`s.
-3. Build a small LangGraph in `build_graph()` that calls the tools and returns a decision. Get **Round 1** passing first, then add blocked routes (R2), resources and many missions (R3-R4).
-4. Test with the sample cases. They are named by round: `r1_p1, r1_p2, ... r5_p1, r5_p2`.
+1. Do the **Quick start** above (clone, venv, install).
+2. Read sections 3 and 4 below (the scenario and the decision you return).
+3. Open `agent.py`, write the 3 tools (`check_route`, `check_resources`, `check_deadline`) as LangChain `@tool`s.
+4. Build a small LangGraph in `build_graph()` that calls the tools and returns a decision. Get **Round 1** passing first, then add blocked routes (R2), resources and many missions (R3-R4).
+5. Test with the sample cases. They are named by round: `r1_p1, r1_p2, ... r5_p1, r5_p2`.
    `python app.py --case r2_p1 --show` runs one case and prints the scenario and your decision.
-5. Last: Round 5. Add `parse_update_report`, set your Ollama key, run `python app.py --test-api`, then test `r5_p1`.
-6. Submit on the page the organizers give you (section 7). No key? Submit R1-R4 and skip R5.
-
-## 1. Install (Windows PowerShell)
-```powershell
-cd RescueOps_Participant
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-macOS/Linux: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+6. Last: Round 5. Add `parse_update_report`, set your Ollama key, run `python app.py --test-api`, then test `r5_p1`.
+7. Submit on the page the organizers give you (section 7). No key? Submit R1-R4 and skip R5.
 
 ## 2. Where to write code
 `agent.py` has **five independent round solvers**: `solve_round1` ... `solve_round5`. Each one has its own tools, its own LangGraph and its own decision logic, and none of them calls another round's code, so changing one round can never break another. `choose_rescue(case)` only reads `case["round"]` and calls the matching solver. (Tool names stay exactly `check_route`, `check_resources`, `check_deadline`, `parse_update_report`: each round defines its own copy inside its `_buildN()` function.)
@@ -59,7 +94,7 @@ Rules: one mission per decision. fuel needed = ceil(route km ÷ 10). Travel time
 - **Required:** `action` (`dispatch`, `wait`, `reroute`, `reject`, `resupply`), `priority` (int 1–5), `reason` (non-empty text).
 - **Optional:** `mission_id` (required for dispatch/reroute if the case has more than one mission), `uses_alternate_route` (bool), `fuel_needed`, `kits_needed`, `personnel_needed` (non-negative ints).
 - Resource numbers you claim are **checked, not trusted**.
-- **Per-case score =** Tool usage = the evaluator sees which of your LangChain tools are actually *invoked* (`check_route`, `check_resources`, `check_deadline`, plus `parse_update_report` when an `update_report` exists). .
+- **Tool usage:** the evaluator sees which of your LangChain tools are actually *invoked* (`check_route`, `check_resources`, `check_deadline`, plus `parse_update_report` when an `update_report` exists).
 - **How the decision part is scored (summary):** malformed output, crashes and timeouts earn 0 for that case. Unsafe dispatches (blocked route, not enough resources, missed deadline) earn 0 and count as safety violations — fewer violations break ties. Safe, feasible, high-severity choices earn the most; doing nothing when a feasible rescue exists earns little; correctly refusing/waiting/resupplying when nothing is feasible earns well. Pretty prose is worth nothing. Rounds are worth 10 / 15 / 20 / 25 / 30 = 100 points. Hidden test cases differ from the samples, so hard-coded answers will fail.
 
 ## 5. Test locally
@@ -94,4 +129,5 @@ Submissions go **one round at a time, in order**: submit **Round 1** first, then
 Open the submission page (**http://10.50.20.214:5000**), enter your team name, upload the file, pick the round and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You can submit again before the deadline (the organizers see your best run).
 
 Submit `agent.py` alone, or a ZIP (`Compress-Archive -Path agent.py -DestinationPath my_team.zip`; add helper files if you import them). See `SUBMISSION_CHECKLIST.md`.
+
 **Never include:** API keys, `.env`, tokens, `.venv`, `__pycache__`, big data files, or anything copied from another team. Submissions containing key files or hard-coded keys are rejected.
