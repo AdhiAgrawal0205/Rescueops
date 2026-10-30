@@ -10,7 +10,7 @@ Usage:
 import argparse, json, math, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-EXAMPLES = os.path.join(HERE, "examples")
+EXAMPLES = os.path.join(HERE, "example")
 WEATHER = {"clear": 1.0, "rain": 1.25, "storm": 1.5}
 ACTIONS = ("dispatch", "wait", "reroute", "reject", "resupply")
 ROUND_FILES = {
