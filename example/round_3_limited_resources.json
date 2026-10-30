@@ -1,0 +1,104 @@
+[
+  {
+    "case_id": "r3_p1",
+    "round": 3,
+    "stage": 0,
+    "weather": "clear",
+    "resupply_possible": false,
+    "resources": {
+      "fuel": 2,
+      "kits": 1,
+      "personnel": 1
+    },
+    "missions": [
+      {
+        "id": "M1",
+        "severity": 5,
+        "distance": 12,
+        "deadline": 20,
+        "kits": 2,
+        "personnel": 2,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M2",
+        "severity": 4,
+        "distance": 8,
+        "deadline": 15,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  },
+  {
+    "case_id": "r3_p2",
+    "round": 3,
+    "stage": 0,
+    "weather": "rain",
+    "resupply_possible": true,
+    "resources": {
+      "fuel": 0,
+      "kits": 0,
+      "personnel": 0
+    },
+    "missions": [
+      {
+        "id": "M3",
+        "severity": 5,
+        "distance": 10,
+        "deadline": 20,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M4",
+        "severity": 3,
+        "distance": 6,
+        "deadline": 12,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  },
+  {
+    "case_id": "r3_p3",
+    "round": 3,
+    "stage": 0,
+    "weather": "storm",
+    "resupply_possible": false,
+    "resources": {
+      "fuel": 2,
+      "kits": 2,
+      "personnel": 2
+    },
+    "missions": [
+      {
+        "id": "M5",
+        "severity": 5,
+        "distance": 30,
+        "deadline": 60,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M6",
+        "severity": 4,
+        "distance": 10,
+        "deadline": 10,
+        "kits": 3,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  }
+]

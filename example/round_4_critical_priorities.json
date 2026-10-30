@@ -1,0 +1,144 @@
+[
+  {
+    "case_id": "r4_p1",
+    "round": 4,
+    "stage": 0,
+    "weather": "clear",
+    "resupply_possible": false,
+    "resources": {
+      "fuel": 3,
+      "kits": 3,
+      "personnel": 3
+    },
+    "missions": [
+      {
+        "id": "M1",
+        "severity": 5,
+        "distance": 15,
+        "deadline": 10,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M2",
+        "severity": 4,
+        "distance": 8,
+        "deadline": 12,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M3",
+        "severity": 3,
+        "distance": 5,
+        "deadline": 10,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  },
+  {
+    "case_id": "r4_p2",
+    "round": 4,
+    "stage": 0,
+    "weather": "rain",
+    "resupply_possible": false,
+    "resources": {
+      "fuel": 3,
+      "kits": 3,
+      "personnel": 3
+    },
+    "missions": [
+      {
+        "id": "M1",
+        "severity": 5,
+        "distance": 10,
+        "deadline": 10,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M2",
+        "severity": 4,
+        "distance": 8,
+        "deadline": 10,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M3",
+        "severity": 3,
+        "distance": 6,
+        "deadline": 7,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M4",
+        "severity": 2,
+        "distance": 4,
+        "deadline": 8,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  },
+  {
+    "case_id": "r4_p3",
+    "round": 4,
+    "stage": 0,
+    "weather": "clear",
+    "resupply_possible": false,
+    "resources": {
+      "fuel": 4,
+      "kits": 2,
+      "personnel": 2
+    },
+    "missions": [
+      {
+        "id": "M1",
+        "severity": 3,
+        "distance": 7,
+        "deadline": 10,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M2",
+        "severity": 5,
+        "distance": 20,
+        "deadline": 25,
+        "kits": 2,
+        "personnel": 2,
+        "route_blocked": false,
+        "alternate_distance": null
+      },
+      {
+        "id": "M3",
+        "severity": 4,
+        "distance": 9,
+        "deadline": 12,
+        "kits": 1,
+        "personnel": 1,
+        "route_blocked": false,
+        "alternate_distance": null
+      }
+    ]
+  }
+]

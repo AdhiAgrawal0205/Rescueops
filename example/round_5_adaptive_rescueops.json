@@ -1,0 +1,294 @@
+[
+  {
+    "case_id": "r5_p1",
+    "round": 5,
+    "stages": [
+      {
+        "case_id": "r5_p1",
+        "round": 5,
+        "stage": 0,
+        "weather": "clear",
+        "resupply_possible": false,
+        "resources": {
+          "fuel": 4,
+          "kits": 3,
+          "personnel": 3
+        },
+        "missions": [
+          {
+            "id": "M1",
+            "severity": 5,
+            "distance": 12,
+            "deadline": 20,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": false,
+            "alternate_distance": null
+          },
+          {
+            "id": "M2",
+            "severity": 3,
+            "distance": 8,
+            "deadline": 15,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": false,
+            "alternate_distance": null
+          }
+        ],
+        "update_report": "Initial control-room report: weather is clear. Both routes are open. Fuel is 4, kits are 3 and personnel are 3.",
+        "agent_view": {
+          "case_id": "r5_p1",
+          "round": 5,
+          "stage": 0,
+          "weather": "clear",
+          "resupply_possible": false,
+          "resources": {
+            "fuel": 4,
+            "kits": 3,
+            "personnel": 3
+          },
+          "missions": [
+            {
+              "id": "M1",
+              "severity": 5,
+              "distance": 12,
+              "deadline": 20,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            },
+            {
+              "id": "M2",
+              "severity": 3,
+              "distance": 8,
+              "deadline": 15,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            }
+          ],
+          "update_report": "Initial control-room report: weather is clear. Both routes are open. Fuel is 4, kits are 3 and personnel are 3."
+        }
+      },
+      {
+        "case_id": "r5_p1",
+        "round": 5,
+        "stage": 1,
+        "weather": "storm",
+        "resupply_possible": false,
+        "resources": {
+          "fuel": 2,
+          "kits": 2,
+          "personnel": 2
+        },
+        "missions": [
+          {
+            "id": "M1",
+            "severity": 5,
+            "distance": 12,
+            "deadline": 20,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": true,
+            "alternate_distance": 18
+          },
+          {
+            "id": "M2",
+            "severity": 3,
+            "distance": 8,
+            "deadline": 15,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": false,
+            "alternate_distance": null
+          }
+        ],
+        "update_report": "URGENT UPDATE: Weather has changed to storm. The direct route to M1 is blocked; its alternate route is 18 km. Fuel is now 2. Kits and personnel are unchanged.",
+        "agent_view": {
+          "case_id": "r5_p1",
+          "round": 5,
+          "stage": 1,
+          "weather": "clear",
+          "resupply_possible": false,
+          "resources": {
+            "fuel": 4,
+            "kits": 3,
+            "personnel": 3
+          },
+          "missions": [
+            {
+              "id": "M1",
+              "severity": 5,
+              "distance": 12,
+              "deadline": 20,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            },
+            {
+              "id": "M2",
+              "severity": 3,
+              "distance": 8,
+              "deadline": 15,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            }
+          ],
+          "update_report": "URGENT UPDATE: Weather has changed to storm. The direct route to M1 is blocked; its alternate route is 18 km. Fuel is now 2. Kits and personnel are unchanged."
+        }
+      }
+    ]
+  },
+  {
+    "case_id": "r5_p2",
+    "round": 5,
+    "stages": [
+      {
+        "case_id": "r5_p2",
+        "round": 5,
+        "stage": 0,
+        "weather": "rain",
+        "resupply_possible": false,
+        "resources": {
+          "fuel": 3,
+          "kits": 2,
+          "personnel": 2
+        },
+        "missions": [
+          {
+            "id": "M3",
+            "severity": 4,
+            "distance": 10,
+            "deadline": 18,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": false,
+            "alternate_distance": null
+          },
+          {
+            "id": "M4",
+            "severity": 5,
+            "distance": 6,
+            "deadline": 12,
+            "kits": 2,
+            "personnel": 2,
+            "route_blocked": false,
+            "alternate_distance": null
+          }
+        ],
+        "update_report": "Initial report: light rain. Both missions are reachable. Available resources: 3 fuel, 2 kits and 2 personnel.",
+        "agent_view": {
+          "case_id": "r5_p2",
+          "round": 5,
+          "stage": 0,
+          "weather": "rain",
+          "resupply_possible": false,
+          "resources": {
+            "fuel": 3,
+            "kits": 2,
+            "personnel": 2
+          },
+          "missions": [
+            {
+              "id": "M3",
+              "severity": 4,
+              "distance": 10,
+              "deadline": 18,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            },
+            {
+              "id": "M4",
+              "severity": 5,
+              "distance": 6,
+              "deadline": 12,
+              "kits": 2,
+              "personnel": 2,
+              "route_blocked": false,
+              "alternate_distance": null
+            }
+          ],
+          "update_report": "Initial report: light rain. Both missions are reachable. Available resources: 3 fuel, 2 kits and 2 personnel."
+        }
+      },
+      {
+        "case_id": "r5_p2",
+        "round": 5,
+        "stage": 1,
+        "weather": "storm",
+        "resupply_possible": false,
+        "resources": {
+          "fuel": 1,
+          "kits": 1,
+          "personnel": 1
+        },
+        "missions": [
+          {
+            "id": "M3",
+            "severity": 4,
+            "distance": 10,
+            "deadline": 18,
+            "kits": 1,
+            "personnel": 1,
+            "route_blocked": true,
+            "alternate_distance": null
+          },
+          {
+            "id": "M4",
+            "severity": 5,
+            "distance": 6,
+            "deadline": 12,
+            "kits": 2,
+            "personnel": 2,
+            "route_blocked": false,
+            "alternate_distance": null
+          }
+        ],
+        "update_report": "SITUATION CHANGE: Rain has intensified to storm. Route to M3 is blocked and no alternate route is available. Fuel is down to 1; kits and personnel are each 1.",
+        "agent_view": {
+          "case_id": "r5_p2",
+          "round": 5,
+          "stage": 1,
+          "weather": "rain",
+          "resupply_possible": false,
+          "resources": {
+            "fuel": 3,
+            "kits": 2,
+            "personnel": 2
+          },
+          "missions": [
+            {
+              "id": "M3",
+              "severity": 4,
+              "distance": 10,
+              "deadline": 18,
+              "kits": 1,
+              "personnel": 1,
+              "route_blocked": false,
+              "alternate_distance": null
+            },
+            {
+              "id": "M4",
+              "severity": 5,
+              "distance": 6,
+              "deadline": 12,
+              "kits": 2,
+              "personnel": 2,
+              "route_blocked": false,
+              "alternate_distance": null
+            }
+          ],
+          "update_report": "SITUATION CHANGE: Rain has intensified to storm. Route to M3 is blocked and no alternate route is available. Fuel is down to 1; kits and personnel are each 1."
+        }
+      }
+    ]
+  }
+]
