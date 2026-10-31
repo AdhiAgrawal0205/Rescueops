@@ -129,8 +129,8 @@ Rounds 1-4 run without your key; your agent must work without the LLM there. For
 ## 7. Package and submit (round by round)
 Submissions go **one round at a time, in order**: submit **Round 1** first, then **Round 2**, then 3, 4 and 5. A round unlocks after the previous one is submitted. The page shows which round is next once you type your team name. You can resubmit any round; the organizers keep your best result for each round, and your total is the sum of your best rounds. Round 5 asks for your Ollama key + model; Rounds 1-4 need no key.
 
-Open the submission page (**http://10.50.20.214:5000**), enter your team name, upload the file, pick the round and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You can submit again before the deadline (the organizers see your best run).
+Open the submission page (**http://10.50.20.214:5000**), enter your team name, upload the file, pick the round and press **Submit**. **Scores are not shown to participants**; the organizers will announce the results. You cannot  submit again.
 
-Submit `agent.py` alone, or a ZIP (`Compress-Archive -Path agent.py -DestinationPath my_team.zip`; add helper files if you import them). See `SUBMISSION_CHECKLIST.md`.
+Submit `.py` format , or a ZIP (`Compress-Archive -Path agent.py -DestinationPath my_team.zip`; add helper files if you import them). See `SUBMISSION_CHECKLIST.md`.
 
 **Never include:** API keys, `.env`, tokens, `.venv`, `__pycache__`, big data files, or anything copied from another team. Submissions containing key files or hard-coded keys are rejected.
